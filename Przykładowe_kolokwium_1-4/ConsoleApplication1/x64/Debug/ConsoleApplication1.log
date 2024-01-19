@@ -1,0 +1,4 @@
+﻿  ConsoleApplication1.cpp
+C:\Users\wojwr\repos\studia_c-_moje_zadanie\Przykładowe_kolokwium_1-4\ConsoleApplication1\ConsoleApplication1.cpp(30,21): error C2065: "ss": niezadeklarowany identyfikator
+C:\Users\wojwr\repos\studia_c-_moje_zadanie\Przykładowe_kolokwium_1-4\ConsoleApplication1\ConsoleApplication1.cpp(31,13): error C2146: błąd składniowy: brakuje „;” przed identyfikatorem „max”
+C:\Users\wojwr\repos\studia_c-_moje_zadanie\Przykładowe_kolokwium_1-4\ConsoleApplication1\ConsoleApplication1.cpp(52,43): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
