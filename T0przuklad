@@ -1,0 +1,408 @@
+Sparrow
+kuba.wroobel
+Dostępny
+
+Kacperek — 27.10.2023 18:29
+podstawowe
+https://www.learncpp.com/
+https://www.youtube.com/watch?v=18c3MTX0PK0&list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb
+https://cpp-lang.net/learn/ 
+Learn C++
+Alex
+The C++ Tutorial
+YouTube
+The Cherno
+Welcome to C++
+Obraz
+Introduction to programming | C++ Programming Language
+You are in the C++ learning sub-site. Here you will find a C++ language course
+Introduction to programming | C++ Programming Language
+zaawansowane
+https://www.youtube.com/@CppCon/videos
+https://www.youtube.com/@cppweekly/featured
+YouTube
+CppCon
+Visit cppcon.org for details on next year's conference. CppCon sponsors have made it possible to record and freely distribute over 1000 sessions from the first CppCon in 2014 to the present. We hope you enjoy them!
+Obraz
+YouTube
+C++ Weekly With Jason Turner
+Making C++ Fun and Accessible.
+Obraz
+podstawowe
+ 
+Typ załącznika: acrobat
+Grebosz_Jerzy_-_Opus_Magnum_C11_-_Programowanie_w_jezyku_C-3.pdf
+11.64 MB
+https://www.codewars.com/
+Codewars
+Codewars - Achieve mastery through coding practice and developer me...
+A coding practice website for all programming levels – Join a community of over 3 million developers and improve your coding skills in over 55 programming languages!
+Codewars - Achieve mastery through coding practice and developer me...
+Mateusz R — 16.11.2023 18:13
+Obraz
+Kacperek — 16.11.2023 18:15
+wyglada git
+jebać wszystkich — 16.11.2023 18:15
+nom
+pytanie ile poziom trudności przykładowego będzie miał wspólnego z faktycznym xD
+Kacperek — 16.11.2023 19:37
+#include <stdio.h>
+#include <iostream>
+#include <time.h>
+#include <limits.h>
+
+using namespace std;
+
+constexpr size_t TAB_SIZE = 20;
+
+int main()
+{
+
+    // zad 1.
+
+    srand(time(NULL));
+
+    int count;
+
+    int max = INT_MIN;
+    int min = INT_MAX;
+
+    do
+    {
+        cout << "podaj liczbe:" << endl;
+        cin >> count;
+
+        if (count < min)
+            min = count;
+        if (count > max)
+            max = count;
+
+    } while (count % 2 != 0 and count > 0);
+
+    // zad 2.
+
+    float tab[TAB_SIZE];
+
+    for (int i = 0; i < TAB_SIZE; i++)
+    {
+        tab[i] = min + ((rand() - 1.0) / (RAND_MAX)) * (max - min);
+    }
+
+    // zad 3.
+
+    float tabCopy[TAB_SIZE];
+    for (int i = 0; i < TAB_SIZE; i++)
+    {
+        tabCopy[i] = tab[i];
+    }
+
+    for (int i = 0; i < TAB_SIZE; i++)
+    {
+        for (int j = 0; j < TAB_SIZE - 1; j++)
+        {
+            if (tabCopy[j] > tabCopy[j + 1])
+            {
+                float temp = tabCopy[j + 1];
+                tabCopy[j + 1] = tabCopy[j];
+                tabCopy[j] = temp;
+            }
+        }
+    }
+
+    float median = (tabCopy[TAB_SIZE / 2 - 1] + tabCopy[TAB_SIZE / 2]) / 2;
+
+    // 0 -> min
+    // 1 -> median
+    // 2 -> max
+    float *ptrTab[3] = {&tabCopy[0], &median, &tabCopy[TAB_SIZE - 1]};
+
+    cout << "min    : " << *ptrTab[0] << endl;
+    cout << "median : " << *ptrTab[1] << endl;
+    cout << "max    : " << *ptrTab[2] << endl;
+}
+jest chujnia ale dziala
+Mateusz R — 27.11.2023 18:45
+https://mega.nz/file/E2YzFQaA#YLNJlwhx5yKXRXSVUSUs4YeYrKLppBWbUq4fgCmwV3w
+484.43 MB file on MEGA
+Obraz
+ZontZoIt — 29.11.2023 20:10
+Sekcja 4 
+Obraz
+Sekcja 5? 
+Obraz
+Bartłomiej Puk — 29.11.2023 20:10
+Obraz
+Korcyk_ — 29.11.2023 20:11
+Obraz
+jebać wszystkich — 29.11.2023 20:11
+Obraz
+Sparrow — 29.11.2023 20:11
+gr4 
+Kacperek — 09.01.2024 14:49
+Obraz
+Kacperek — 09.01.2024 21:35
+```cpp
+#include <iostream>
+#include <cstring>
+#include <exception>
+
+using namespace std;
+Rozwiń
+message.txt
+4 KB
+🤙
+Korcyk_ — 16.01.2024 14:13
+Typ załącznika: archive
+T0B_sekcja_6-20240116.zip
+196.16 KB
+Marcel — 16.01.2024 14:38
+trzymcie jak się wam to do czegoś przyda
+Typ załącznika: archive
+kolos_gr5.rar
+389.08 KB
+Kacperek — 16.01.2024 17:22
+zaliczone rozwiązanie
+#include "Wybor.h"
+#include <exception>
+#include <cstring>
+
+using namespace std;
+Rozwiń
+message.txt
+4 KB
+ALDENTE — 16.01.2024 21:03
+Typ załącznika: archive
+T0B_sekcja_3-20240116.zip
+382.90 KB
+Mateusz R — 17.01.2024 14:12
+Typ załącznika: archive
+T0B_sekcja_1-20240117.zip
+99.09 KB
+jebać wszystkich — 17.01.2024 15:49
+Typ załącznika: archive
+T0B_sekcja_2-20240117.zip
+96.06 KB
+Artur — 17.01.2024 16:11
+o boze o kurwa ile tego
+Tomasz Powęzka — 17.01.2024 19:04
+dopiero się zacznie na sesji ; )
+Artur — 17.01.2024 19:05
+weź tak nie mow
+Ja rozjebany przez chorobę w łóżku leze
+💀
+Tomasz Powęzka — 17.01.2024 19:06
+To zdrowiej tam
+Artur — 17.01.2024 19:09
+dzięki
+natalia — 17.01.2024 19:11
+Artur łatwo mówię ci
+Na logike
+Artur — 17.01.2024 19:12
+zdrowieć na logike?
+natalia — 17.01.2024 19:12
+To tez
+W twoim przypadku
+Artur — 17.01.2024 19:13
+😩😩
+Tylko liga by mnie wyleczyła
+jebać wszystkich — 17.01.2024 20:12
+Zaliczone rozwiązanie, tylko do assert coś się tam czepiał
+#include "Wybor.h"
+#include <cassert>
+
+using namespace std;
+
+/*
+Rozwiń
+Kol1.cpp
+4 KB
+﻿
+#include "Wybor.h"
+#include <exception>
+#include <cstring>
+
+using namespace std;
+
+#ifdef Kol_2
+
+enum class Dostepnosc {
+	nieDostepny = 0,
+	spodziewanaDostawa = 1,
+	dostepny = 2,
+};
+
+struct Producent {
+	char nazwa[500];
+};
+
+struct Towar
+{
+	char nazwa[1000];
+	double cena;
+	Dostepnosc dostepnosc;
+	Producent* producent;
+};
+
+
+ostream& operator<<(ostream& str, Producent const& val) {
+	str << "{nazwa:" << val.nazwa << "}";
+	return str;
+}
+
+ostream& operator<<(ostream& str, Dostepnosc const& val) {
+	constexpr size_t enum_size = 3;
+	constexpr char dostepnosc[enum_size][20] = { "nieDostepny", "spodziewanaDostawa", "dostepny" };
+
+	str << "{dostepnosc:" << dostepnosc[(int)val] << "}";
+	return str;
+}
+
+ostream& operator<<(ostream& str, Towar const& val) {
+	str << "{nazwa:" << val.nazwa;
+	str << " cena:" << val.cena;
+	str << " dostepnosc:" << val.dostepnosc;
+	str << " producent:" << *val.producent << "}";
+
+	return str;
+}
+
+
+
+double sredniaCena(Towar* dane, size_t towar_size, Producent* producent)
+{
+	if (producent == nullptr || dane == nullptr) throw invalid_argument("nullptr");
+	if (towar_size == 0) throw invalid_argument("tab_size = 0");
+
+	double suma = 0;
+	int ilosc = 0;
+	for (int i = 0; i < towar_size; i++)
+	{
+		if (dane[i].producent == producent) {
+			suma += dane[i].cena;
+			ilosc++;
+		}
+	}
+
+	if (ilosc == 0) throw domain_error("brak produktow tego producenta");
+
+	return suma / ilosc;
+}
+
+Towar stworzTowar(const char* nazwa, double cena, Dostepnosc dostepnosc, Producent* producent)
+{
+	Towar temp;
+
+	strcpy_s(temp.nazwa, nazwa);
+	temp.cena = cena;
+	temp.dostepnosc = dostepnosc;
+	temp.producent = producent;
+
+	return temp;
+}
+
+void assert(bool result) {
+	cout << " | ";
+	result ? cout << "passed" : cout << "failed";
+	cout << endl;
+}
+
+void test_srednia() {
+	cout << "test_srednia";
+
+	Producent producenci[] = {
+		{"abc"},
+		{"dfg"},
+	};
+
+	Towar towary[] =
+	{
+		{"Sledze",10.99,Dostepnosc::dostepny,&producenci[0]},
+		{"Sledze",100.0,Dostepnosc::dostepny,&producenci[1]},
+		{"borowki",50.0,Dostepnosc::dostepny,&producenci[1]},
+		{"karasie",75.0,Dostepnosc::dostepny,&producenci[1]},
+	};
+
+	try {
+		double value = sredniaCena(towary, sizeof(towary) / sizeof(Towar), &producenci[1]);
+		;		double expected_value = 75.0;
+
+		assert(value == expected_value);
+	}
+	catch (exception) {
+		cout << "| error";
+	}
+
+}
+
+void test_brak_towaru() {
+	cout << "test_brak_towaru";
+
+	Producent producenci[] = {
+		{"abc"},
+		{"dfg"},
+	};
+
+	Towar towary[] =
+	{
+		{"Sledze",100.0,Dostepnosc::dostepny,&producenci[1]},
+		{"borowki",50.0,Dostepnosc::dostepny,&producenci[1]},
+	};
+
+	bool catched_error = false;
+
+	try {
+		sredniaCena(towary, sizeof(towary) / sizeof(Towar), &producenci[0]);
+
+	}
+	catch (domain_error) {
+		catched_error = true;
+
+	}
+	catch (exception) {
+		cout << "| error";
+	}
+
+	assert(catched_error);
+
+}
+
+void testy() {
+	cout << "TESTY:" << endl;
+
+	test_srednia();
+	test_brak_towaru();
+}
+
+int main()
+{
+
+	Producent producenci[] = {
+		{"KWK Œwiderek"},
+		{"Agencja T.Chryzantema"},
+		{"Rybak z.o.o"}
+	};
+
+	Towar towary[] =
+	{
+		{"Sledze",10.99,Dostepnosc::dostepny,&producenci[0]},
+		{"Wêgiel",1000.0,Dostepnosc::nieDostepny,&producenci[1]},
+		{"Stal",500.0,Dostepnosc::nieDostepny,&producenci[1]},
+		{"Masaz",501.29,Dostepnosc::dostepny,&producenci[2]},
+
+		stworzTowar("karas", 9213.5, Dostepnosc::spodziewanaDostawa, &producenci[0]),
+		stworzTowar("uran-248", 200, Dostepnosc::spodziewanaDostawa, &producenci[1]),
+		stworzTowar("azbest", 1250, Dostepnosc::dostepny, &producenci[1]),
+		stworzTowar("karp", 9213.5, Dostepnosc::dostepny, &producenci[0]),
+
+	};
+
+	testy();
+
+	for (int i = 0; i < 8; i++) {
+		cout << towary[i] << endl;
+	}
+}
+
+#endif
+message.txt
+4 KB
