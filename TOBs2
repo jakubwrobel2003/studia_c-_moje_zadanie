@@ -1,0 +1,119 @@
+#include <iomanip>
+#include <cmath>
+#include <ctime>
+#include <cassert>
+using namespace std;
+enum class Rodzaj
+{
+    mechaniczna = 0,
+    diodowa = 1,
+    laserowa = 2,
+
+};
+struct Producent
+{
+    char prod[500];
+};
+
+struct Myszka
+{
+    char kolor[50];
+    int dpi;
+    Rodzaj rodzaj; // 0 - mechaniczna, 1 - diodowa, 2 - laserowa
+    Producent* producent;
+};
+
+void dodaj(Myszka* m, const char* kol, int dpi, Rodzaj rod, Producent* h) {
+    strcpy_s(m->kolor, kol);
+    m->dpi = dpi;
+    m->rodzaj = rod;
+    m->producent = h;
+}
+void wypisz(Myszka* m) {
+    cout << m->producent->prod<<"-"<<m->kolor<<"-"<<m->dpi<<"dpi";
+}
+
+int najwyzszeDPI(Myszka *dane,int size)
+//Funkcja ma przyjąć tablicę myszek i zwrócić najwyższą wartość DPI, która się w niej znajduje
+{
+    int i = 0;
+    int max = 0;
+    assert(size > 0);
+
+    for (i; i < size; i++)
+    {  
+        if (dane[i].dpi > max)
+        {
+            max = dane[i].dpi;
+        }
+    }
+    if (max == 0)
+    {
+        throw domain_error("");
+    }
+
+    return max;
+}
+void czydobrzeliczy() {
+    Producent p[] = {
+           {"A4Tech"},{"Dell"},{"Microsoft"},
+    };
+    Myszka myszki[] =
+    {
+        {"Czarna", 5000, Rodzaj::mechaniczna, &p[0]},
+        {"Biała", 6000, Rodzaj::mechaniczna, &p[1]},
+        {"Czarna", 9000, Rodzaj::mechaniczna,&p[2]},
+
+        // dodaj jeszcze przynajmniej 4 instancje
+    };
+    const int dobrze = 9000;
+    if (dobrze == najwyzszeDPI(myszki, 3)) {
+        cerr << "PASS\n";
+
+    }
+    else {
+        cerr << "fail\n";
+    }
+}
+void testException() {
+
+    Myszka myszki[3];
+    try
+    {
+        najwyzszeDPI(myszki, 3);
+        cerr << "FAIL";
+    }
+    catch (domain_error)
+    {
+        cerr << "PASS";
+    }
+    catch (...)
+    {
+        cerr << "FAIL/unknown error";
+    }
+
+}
+int main()
+{
+    Producent p[] = {
+           {"A4Tech"},{"Dell"},{"Microsoft"},
+    };
+
+    Myszka myszki[] =
+    {
+        {"Czarna", 5000, Rodzaj::mechaniczna, &p[0]},
+        {"Biała", 6000, Rodzaj::mechaniczna, &p[1]},
+        {"Czarna", 9000, Rodzaj::mechaniczna,&p[2]},
+        
+        // dodaj jeszcze przynajmniej 4 instancje
+    };
+    Myszka m;
+    dodaj(&m, "RED", 600, Rodzaj::mechaniczna, &p[0]);
+    wypisz(&m);
+    cout<<najwyzszeDPI(myszki, 3);
+    czydobrzeliczy();
+    testException();
+
+
+    return 0;
+}
