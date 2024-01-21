@@ -1,0 +1,107 @@
+
+int main()
+{
+	
+	int maxliczb(int a, int last) {
+		if (last <= a) {
+			return a;
+		}
+		return last;
+	}
+	
+	
+	int minliczb(int a, int last) {
+		if (last <= a) {
+			return last;
+		}
+		return a;
+	}
+	
+	int main() {
+		srand(static_cast<unsigned int>(time(0)));
+	
+		int liczba_ujemna=0;
+		int  liczba;
+		int n;
+		int tab[20];
+		int max ;
+		int min;
+		bool x=true;
+		do {
+			cout << "Podaj liczbe N\n";
+			cin >> n;
+		} while (n < 0	||  n%2==1 );
+			do {
+				n--;
+				cout << "podaj liczbe\n";
+				cin >> liczba;
+				if (x) {
+					max = liczba;
+					min = liczba;
+					x = false;
+				}
+				
+				max = maxliczb(liczba, max);
+				min = minliczb(liczba, min);
+				cout << max << " " << min << endl;
+				if (liczba < 0) {
+					liczba_ujemna++;
+				}
+				else
+				{
+					liczba_ujemna = 0;
+				}
+			} while (liczba_ujemna < 2 && n>0);
+	
+	
+	
+			for (int i = 0; i < 20; i++) {
+				tab[i] = (rand() % (max-min) + min);
+				cout << tab[i] << endl;
+			}
+			
+			
+			int* tabwsk[3];
+			tabwsk[0] = &tab[0];
+			tabwsk[1] = &tab[0];
+	
+			for (int i = 1; i < 20; i++) {
+				if (*tabwsk[0] > tab[i]) {
+					tabwsk[0] = &tab[i];
+				}
+				if (*tabwsk[1] < tab[i]) {
+					tabwsk[1] = &tab[i];
+				}
+				cout << *tabwsk[0] << " " << *tabwsk[1] << " " << tab[i]<<"\n";
+			}
+	
+	
+			int g = 0;
+			int tab1[20];
+			for (int i = 0; i < 20; i++) {
+				tab1[i] = tab[i];
+			}
+			for (int i = 0; i < 20; i++) {
+				for (int j = 0; j < 20; j++) {
+					if (tab1[i] > tab1[j]) {
+						g = tab1[j];
+						tab1[j] = tab1[i];
+						tab1[i] = tab1[j];
+					}
+				}
+			}
+			g = tab[9];
+			for (int i = 0; i < 20; i++) {
+				if (tab[i] == g) {
+					tabwsk[2] = &tab[i];
+					break;
+				}
+			}
+			cout << "dd\n";
+			
+			for (int i = 0; i < 3; i++) {
+				cout << *tabwsk[i] << endl;
+			}
+
+	}
+}
