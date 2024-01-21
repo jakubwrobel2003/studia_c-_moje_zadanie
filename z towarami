@@ -1,0 +1,185 @@
+#include "Wybor.h"
+#include <exception>
+#include <cstring>
+
+using namespace std;
+
+#ifdef Kol_2
+
+enum class Dostepnosc {
+	nieDostepny = 0,
+	spodziewanaDostawa = 1,
+	dostepny = 2,
+};
+
+struct Producent {
+	char nazwa[500];
+};
+
+struct Towar
+{
+	char nazwa[1000];
+	double cena;
+	Dostepnosc dostepnosc;
+	Producent* producent;
+};
+
+
+ostream& operator<<(ostream& str, Producent const& val) {
+	str << "{nazwa:" << val.nazwa << "}";
+	return str;
+}
+
+ostream& operator<<(ostream& str, Dostepnosc const& val) {
+	constexpr size_t enum_size = 3;
+	constexpr char dostepnosc[enum_size][20] = { "nieDostepny", "spodziewanaDostawa", "dostepny" };
+
+	str << "{dostepnosc:" << dostepnosc[(int)val] << "}";
+	return str;
+}
+
+ostream& operator<<(ostream& str, Towar const& val) {
+	str << "{nazwa:" << val.nazwa;
+	str << " cena:" << val.cena;
+	str << " dostepnosc:" << val.dostepnosc;
+	str << " producent:" << *val.producent << "}";
+
+	return str;
+}
+
+
+
+double sredniaCena(Towar* dane, size_t towar_size, Producent* producent)
+{
+	if (producent == nullptr || dane == nullptr) throw invalid_argument("nullptr");
+	if (towar_size == 0) throw invalid_argument("tab_size = 0");
+
+	double suma = 0;
+	int ilosc = 0;
+	for (int i = 0; i < towar_size; i++)
+	{
+		if (dane[i].producent == producent) {
+			suma += dane[i].cena;
+			ilosc++;
+		}
+	}
+
+	if (ilosc == 0) throw domain_error("brak produktow tego producenta");
+
+	return suma / ilosc;
+}
+
+Towar stworzTowar(const char* nazwa, double cena, Dostepnosc dostepnosc, Producent* producent)
+{
+	Towar temp;
+
+	strcpy_s(temp.nazwa, nazwa);
+	temp.cena = cena;
+	temp.dostepnosc = dostepnosc;
+	temp.producent = producent;
+
+	return temp;
+}
+
+void assert(bool result) {
+	cout << " | ";
+	result ? cout << "passed" : cout << "failed";
+	cout << endl;
+}
+
+void test_srednia() {
+	cout << "test_srednia";
+
+	Producent producenci[] = {
+		{"abc"},
+		{"dfg"},
+	};
+
+	Towar towary[] =
+	{
+		{"Sledze",10.99,Dostepnosc::dostepny,&producenci[0]},
+		{"Sledze",100.0,Dostepnosc::dostepny,&producenci[1]},
+		{"borowki",50.0,Dostepnosc::dostepny,&producenci[1]},
+		{"karasie",75.0,Dostepnosc::dostepny,&producenci[1]},
+	};
+
+	try {
+		double value = sredniaCena(towary, sizeof(towary) / sizeof(Towar), &producenci[1]);
+		;		double expected_value = 75.0;
+
+		assert(value == expected_value);
+	}
+	catch (exception) {
+		cout << "| error";
+	}
+
+}
+
+void test_brak_towaru() {
+	cout << "test_brak_towaru";
+
+	Producent producenci[] = {
+		{"abc"},
+		{"dfg"},
+	};
+
+	Towar towary[] =
+	{
+		{"Sledze",100.0,Dostepnosc::dostepny,&producenci[1]},
+		{"borowki",50.0,Dostepnosc::dostepny,&producenci[1]},
+	};
+
+	bool catched_error = false;
+
+	try {
+		sredniaCena(towary, sizeof(towary) / sizeof(Towar), &producenci[0]);
+
+	}
+	catch (domain_error) {
+		catched_error = true;
+
+	}
+	catch (exception) {
+		cout << "| error";
+	}
+
+	assert(catched_error);
+
+}
+
+void testy() {
+	cout << "TESTY:" << endl;
+
+	test_srednia();
+	test_brak_towaru();
+}
+
+int main()
+{
+
+	Producent producenci[] = {
+		{"KWK Œwiderek"},
+		{"Agencja T.Chryzantema"},
+		{"Rybak z.o.o"}
+	};
+
+	Towar towary[] =
+	{
+		{"Sledze",10.99,Dostepnosc::dostepny,&producenci[0]},
+		{"Wêgiel",1000.0,Dostepnosc::nieDostepny,&producenci[1]},
+		{"Stal",500.0,Dostepnosc::nieDostepny,&producenci[1]},
+		{"Masaz",501.29,Dostepnosc::dostepny,&producenci[2]},
+
+		stworzTowar("karas", 9213.5, Dostepnosc::spodziewanaDostawa, &producenci[0]),
+		stworzTowar("uran-248", 200, Dostepnosc::spodziewanaDostawa, &producenci[1]),
+		stworzTowar("azbest", 1250, Dostepnosc::dostepny, &producenci[1]),
+		stworzTowar("karp", 9213.5, Dostepnosc::dostepny, &producenci[0]),
+
+	};
+
+	testy();
+
+	for (int i = 0; i < 8; i++) {
+		cout << towary[i] << endl;
+	}
+}
