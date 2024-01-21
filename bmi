@@ -1,0 +1,81 @@
+
+int main()
+{
+	int wzrost;
+	double waga;
+	do {
+		cout << "podaj wage\n";
+		cin >> waga;
+	} while (waga <= 0);
+	do {
+		cout << "podaj wzrost\n";
+		cin >> wzrost;
+	} while (wzrost <= 0);
+	
+	
+	double BMI = (waga /pow(wzrost,2))*10000;
+	cout << setprecision(4) << BMI << "\n";
+
+	int a;
+	cout << "A\n";
+	cin >> a;
+	int tab[5][6];
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 6; j++) {
+			tab[i][j] = rand() % a;
+		}
+	}
+	int suma = 0;
+	for (int i = 0; i < 5; i++) {
+		suma = 0;
+		for (int j = 0; j < 6; j++) {
+			suma += tab[i][j];
+			cout<<tab[i][j];
+		}
+		cout << "suma" << suma;
+		cout << "\n";
+	
+	}
+	int x1, x2, y1, y2;
+	cin >> x1;
+	cin >> x2;
+	cin >> y1;
+	cin >> y2;
+
+	int* wsk1 = &tab[x1][x2];
+	int* wsk2 = &tab[y1][y2];
+	int odleglosc = 0;
+	if (x1 < y1) {
+		while (wsk1!=wsk2)
+		{
+			wsk1++;
+			odleglosc++;
+		}
+	}
+	if (x1 == y1) {
+		if (x2 < y2) {
+			while (wsk1 != wsk2)
+			{
+				wsk1++;
+				odleglosc++;
+			}
+		}
+		else
+		{
+			while (wsk1 != wsk2)
+			{
+				wsk2++;
+				odleglosc++;
+			}
+		}
+	}
+	if (x1 > y1) {
+		while (wsk1 != wsk2)
+		{
+			wsk2++;
+			odleglosc++;
+		}
+	}
+	cout << odleglosc;
+
+	return 0;
