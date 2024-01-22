@@ -1,0 +1,123 @@
+
+    enum class Material
+    {
+        szklo = 0,
+        PET = 1,
+        stal=2,
+    };
+
+    struct Firma {
+        char producent[50];
+    };
+    struct Butelka
+    {
+        char zawartosc[50];
+        int pojemnosc;
+        Material material; // 0 - szklo, 1 - PET, 2 - stal
+        Firma* firma;
+};
+
+    void podajDane(Butelka& b, char* za, int pojemnosc, Material mat, Firma * f) {
+        strcat_s(b.zawartosc, za);
+        b.pojemnosc = pojemnosc;
+        b.material = mat;
+        b.firma = f;
+
+    }
+    void wypisz(Butelka& b) {
+        std::cout << b.firma->producent << "-" << b.pojemnosc << "-" << b.zawartosc << "\n";
+    }
+
+    int sumaPojemnosci(Butelka const *dane, int size)
+        //Funkcja ma przyjąć tablicę butelek i zwrócić sumę pojemności wszystkich instancji znajdujących się w tablicy
+    {
+        int iloscobjektow = 0;
+        assert(size > 0);
+          
+       
+        int i = 0;
+        int suma = 0;
+        for (i; i <size; i++)
+        {
+            if (dane[i].pojemnosc > 0) {
+               
+                iloscobjektow++;
+                suma += dane[i].pojemnosc;
+            }
+           
+        }
+        
+        if (suma == 0)
+        {
+            if (iloscobjektow == 0)
+            {
+                throw std::domain_error("Brak instancji z dodatnią pojemnością");
+            }
+        }
+        return suma ;
+    }
+    void test1() {
+        Firma firmy1[] = {
+           {"Nałęczowianka"},{"Tymbark"},{"Syropex"}
+        };
+        Butelka butelki1[] =
+        {
+            {"woda", 1500, Material::szklo, &firmy1[0]},
+            {"sok jabłkowy", 6000,Material::szklo,&firmy1[1] },
+            {"syrop malinowy", 9000, Material::PET,&firmy1[2] },
+            // dodaj jeszcze przynajmniej 4 instancje
+        };
+        int oczekiwana = 16500;
+        try {
+            int suma = sumaPojemnosci(butelki1, 3);
+            if(suma!=oczekiwana) throw suma;
+            cerr << "pass\n";
+
+        }
+        catch (int suma) {
+            cerr << "fail\n";
+        }
+        catch (...) {
+            cerr << " nieznany fail\n";
+        }
+    }
+    void test2() {
+        cout << "Teststart\n";
+        Firma firmy1[] = {
+           {"Nałęczowianka"},{"Tymbark"},{"Syropex"}
+        };
+        Butelka butelki2[3];
+        try{
+            sumaPojemnosci(butelki2, 3);
+
+        }
+        catch (domain_error)
+        {
+            cerr << "PASS";
+        }
+        catch (...)
+        {
+            cerr << "FAIL/unknown error";
+        }
+        
+
+
+    }
+    int main()
+    {
+        Firma firmy[] = {
+            {"Nałęczowianka"},{"Tymbark"},{"Syropex"}
+        };
+        Butelka butelki[] =
+        {
+            {"woda", 1500, Material::szklo, &firmy[0]},
+            {"sok jabłkowy", 6000,Material::szklo,&firmy[1] },
+            {"syrop malinowy", 9000, Material::PET,&firmy[2] },
+            // dodaj jeszcze przynajmniej 4 instancje
+        };
+        wypisz(butelki[1]);
+        cout<<sumaPojemnosci(butelki, 3)<<"\n";
+        test1();
+        test2();
+
+    }
