@@ -1,0 +1,49 @@
+const int x=3;
+const int y=5;
+
+int main()
+{
+    int x1, x2, y1, y2;
+    srand(static_cast<unsigned int>(time(0)));
+   /* cin >> x1;
+    cin >> y1;
+    cin >> x2;
+    cin >> y2;
+    cout << rand() % 20 + 1 << "\n";
+    cout << scientific << pow(pow(x2 - x1, 2) + pow(y2 - y1, 2), 0.5)<<"\n";*/
+
+    char tab[x][y];
+    char tab1[] = { '*', '&', '$', '#', '0', '!' };
+
+    for (int i = 0; i < y; i++) {
+        tab[0][i] = tab1[rand() % 6];
+        cout << tab[0][i];
+    }
+    cout << endl;
+    for (int i = 1; i < x; i++) {
+        for (int j = 0; j < y; j++) {
+            tab[i][j] = tab[i - 1][j];
+            cout << tab[i][j];
+        }
+        cout << endl;
+
+    }
+    cout << endl;
+    cout << endl;
+    char* wsk1[x/2+x%2];
+    //char* wsk2 = &tab[x][y];
+    //wypisuje wiersze o pażytym indeksie i 0 np 0 2 4;
+    for (int i = 0; i < x/2+x % 2; i++)
+    {
+        wsk1[i] = &tab[i * 2][0];
+    }
+    for (int i = 0; i<x / 2+ x % 2; i++) {
+        int j = 0;
+        while (j != y) {
+            cout << *wsk1[i];
+            wsk1[i]++;
+            j++;
+        }
+        cout << endl;
+    }
+}
