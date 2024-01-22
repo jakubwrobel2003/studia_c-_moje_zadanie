@@ -1,0 +1,173 @@
+Blok 2 [Diagnostyka- testowanie]:
+Pracuj na kodzie z pliku „T0Bs2.cpp” (skopiuj go do swojego projektu).
+
+1) Przebuduj typ strukturalny Myszka, tak aby informację o rodzaju przechowywał w typie wyliczeniowym (nowa wersja z C++11),
+a informacja o producencie była wskazaniem innego typu strukturalnego w programie. Nowy typ strukturalny ma tylko przechowywać nazwę producenta.
+
+2) Napisz funkcję do wypełniania treścią instancji struktury Myszki (po modyfikacjach z pkt. 1), oraz funkcje do wypisywania instancji 
+struktury na ekranie w formacie „{producent} – {kolor} – {DPI} DPI”.
+
+3) Popraw funkcję najwyzszeDPI (), tak aby jej kod się kompilował i działał prawidłowo (zgodnie z opisem w komentarzu).
+
+4) Rozbuduj funkcję o wyrzucanie wyjątku, jeśli funkcja w tablicy nie znajdzie ani jednej instancji zadanego typu i asercję,
+jeśli liczba instancji w tablicy będzie nieprawidłowa. Samodzielnie dobierz typ wyjątku standardowego.
+
+5) Napisz dwa testy jednostkowe dla funkcji najwyzszeDPI(). Jeden sprawdzający czy prawidłowo wskaże ona najwyższe DPI.
+Drugi, który sprawdzi czy funkcja poprawnie zgłosi wyjątek, jeśli w tablicy nie będzie instancji spełniającej kryteria.
+Testy muszą być odporne na zgłoszenie niespodziewanych wyjątków.
+
+
+
+
+
+#include "Wybor.h"
+#include <cassert>
+
+using namespace std;
+
+/*
+* Uwaga: Zadania kod rozwiazania zaania umieszczać pomiędzy #ifdef a #endif. 
+*/
+
+#ifdef Kol_1
+
+    enum class Rodzaj {
+        mechaniczna = 0,
+        diodowa = 1,
+        laserowa = 2,
+    };
+
+    struct Producent
+    {
+        char producent[50];
+    };
+
+    struct Myszka
+    {
+        char kolor[50];
+        int DPI;
+        Rodzaj rodzaj; // 0 - mechaniczna, 1 - diodowa, 2 - laserowa
+        Producent* producent;
+    };
+
+    Myszka dodajMyszke(const char* kolor, int DPI, Rodzaj rodzaj, Producent* producent)
+    {
+        Myszka myszka;
+        strcpy_s(myszka.kolor, kolor);
+        myszka.DPI = DPI;
+        myszka.rodzaj = rodzaj;
+        myszka.producent = producent;
+        return myszka;
+    }
+
+    ostream& operator<<(ostream& str, Producent const& producent) {
+        str << producent.producent;
+        return str;
+    }
+
+    void wypiszMyszke(Myszka& myszka)
+    {
+        cout << *myszka.producent << " - " << myszka.kolor << " - " << myszka.DPI << " DPI" << endl;
+    }
+
+
+
+    int najwyzszeDPI(Myszka const *myszki, int dane)
+        //Funkcja ma przyjąć tablicę myszek i zwrócić najwyższą wartość DPI, która się w niej znajduje
+    {
+        assert(dane > 0);
+       
+        int max = 0;
+        for (int i = 0; i < dane; i++)
+        {
+            if (myszki[i].DPI > max)
+            {
+                //cerr << "test";
+                max = myszki[i].DPI;
+            }
+        }
+        if (max == 0)
+        {
+            throw domain_error("");
+        }
+        
+        return max;
+    }
+
+    void testDPI() {
+
+        Producent producenci[] = {
+            {"A4Tech"},
+            {"Dell"},
+            {"Microsoft"},
+        };
+        int maxDPI = 10000;
+        Myszka myszki[] =
+        {
+            dodajMyszke("zielona", 2000, Rodzaj::mechaniczna, &producenci[2]),
+            dodajMyszke("niebieska", 2500, Rodzaj::laserowa, &producenci[0]),
+            dodajMyszke("fioletowa", 4000, Rodzaj::diodowa, &producenci[1]),
+            dodajMyszke("granatowa", 10000, Rodzaj::mechaniczna, &producenci[2]),
+        };
+
+        try
+        {
+            if (najwyzszeDPI(myszki, 4) == 10000) cout << "PASS";
+            else cout << "FAIL";
+        }
+        catch (...)
+        {
+            cerr << "unknown error";
+        }
+    }
+
+    void testException() {
+
+        Myszka myszki[3];
+        try
+        {
+            najwyzszeDPI(myszki, 3);
+            cerr << "FAIL";
+        }
+        catch (domain_error)
+        {
+            cerr << "PASS";
+        }
+        catch (...)
+        {
+            cerr << "FAIL/unknown error";
+        }
+
+    }
+
+
+    int main()
+    {
+        Producent producenci[] = {
+            {"A4Tech"},
+            {"Dell"},
+            {"Microsoft"},
+        };
+
+        constexpr int maksymalnaIlosc = 7;
+        Myszka myszki[maksymalnaIlosc] =
+        {
+            {"Czarna", 5000, Rodzaj::mechaniczna, &producenci[0]},
+            {"Biała", 6000, Rodzaj::diodowa, &producenci[1]},
+            {"Czarna", 9000, Rodzaj::diodowa, &producenci[1]},
+            dodajMyszke("zielona", 2000, Rodzaj::mechaniczna, &producenci[2]),
+            dodajMyszke("niebieska", 2500, Rodzaj::laserowa, &producenci[0]),
+            dodajMyszke("fioletowa", 4000, Rodzaj::diodowa, &producenci[1]),
+            dodajMyszke("granatowa", 10000, Rodzaj::mechaniczna, &producenci[2]),
+        };
+
+        wypiszMyszke(myszki[5]);
+        cout << endl;
+        cout << najwyzszeDPI(myszki, maksymalnaIlosc) << endl;
+
+        testDPI();
+        cout << endl;
+        testException();
+    }
+
+#endif
