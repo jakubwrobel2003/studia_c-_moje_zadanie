@@ -1,0 +1,136 @@
+  using trescTekstowa = char[500];
+
+  enum class Typzadania
+  {
+      łatwe=0, podstawowe=1, ambitne=2,
+  };
+
+  struct Przedmiotnazwa {
+      char przedmiot[50];
+  };
+
+  struct Zadanie
+  {
+      trescTekstowa tresc;
+      int liczbaPunktow;
+      Typzadania typZadania; //0 - łatwe, 1 - podstawowe, 2 - ambitne
+      Przedmiotnazwa * przedmiot; //0 - matematyka, 1 - programowanie, 2 - prace domowe 
+  };
+
+
+  Zadanie dod(trescTekstowa tresc, int pkt, Typzadania typ, Przedmiotnazwa* przed) {
+      Zadanie zad;
+      strcpy_s(zad.tresc, tresc);
+      zad.liczbaPunktow = pkt;
+      zad.typZadania = typ;
+      zad.przedmiot = przed;
+      return zad;
+  }
+  void wypiszdane(Zadanie& p) {
+      cout << "zadanie " << p.tresc << " " << p.liczbaPunktow << " " << static_cast<int>(p.typZadania) << " " << p.przedmiot->przedmiot;
+  }
+
+  int zadaniaONajdluzszejTresci(Zadanie* tablica, int size, const char* prze)
+      // Funkcja przyjmuje tablice zadan i przedmiot 
+      // Ma wyznaczyć jakiego typu jest zadnie z tego przedmiotu,
+      // które ma najdluzsza tresc
+      // UWAGA: funkcja zawiera bledy czasu kompilacji i czasu wykonania
+  {
+      if (tablica == nullptr) {
+          throw domain_error("");
+      };
+      assert(size > 0);
+      Przedmiotnazwa typPrzedmiotu;
+     size_t  maxDlugosc = 0;
+    
+     for (int i = 0; i < size; i++)
+     {
+       
+         if (!(strcmp(tablica[i].przedmiot->przedmiot , prze)))
+         {
+            
+             if (strlen(tablica[i].tresc) > maxDlugosc)
+             {
+                 
+                 maxDlugosc = strlen(tablica[i].tresc);
+               
+                
+              }
+         }
+      
+         if (maxDlugosc == 0) {
+            throw domain_error("");
+         }
+     }return maxDlugosc;
+  }
+  void test1() {
+
+      Przedmiotnazwa przed[] = {
+                  {"matematyka"},{"programowanie"},{"prace domowe"},
+      };
+
+      Zadanie zad[] = {
+          {"Oblicz srednia", 2, Typzadania::łatwe, &przed[0]},
+          {"Znajdz x w rownaniu", 5, Typzadania::łatwe, &przed[0]},
+          {"Pokoloruj drwala... proceduralnie", 30, Typzadania::łatwe, &przed[0]}, };
+
+     // cout << zadaniaONajdluzszejTresci(zad, 3, "matematyka") << "\n";
+     // cout << zadaniaONajdluzszejTresci(zad, 3, "matematyka") << endl;
+      size_t oczekiwany = 33;
+      try {
+          if (oczekiwany == zadaniaONajdluzszejTresci(zad, 3, "matematyka")) {
+              cerr << "Pass";
+          }
+          else
+          {
+              cerr << "fail";
+          }
+      }
+      catch (...) {
+          cerr << "inny blad fail";
+      }
+     
+  }
+  void test2() {
+      Przedmiotnazwa przed[] = {
+              {"matematyka"},{"programowanie"},{"prace domowe"},
+      };
+      Zadanie zad[] = {
+          {"Oblicz srednia", 2, Typzadania::łatwe, &przed[1]},
+
+      };
+      
+      try {
+           cout << zadaniaONajdluzszejTresci(zad, 1, "prace domowe") << endl;
+             
+              cerr << "fail; ";
+      }
+      catch (domain_error) {
+          cerr << "pass";
+      }
+      catch (...) {
+          cerr << "inny blad";
+      }
+  }
+
+  int main()
+  {
+      // 0 - matematyka, 1 - programowanie, 2 - prace domowe
+      Przedmiotnazwa przed[]={
+          {"matematyka"},{"programowanie"},{"prace domowe"},
+      };
+
+      Zadanie zadania[] = {
+          {"Oblicz srednia", 2, Typzadania::łatwe, &przed[0]},
+          {"Znajdz x w rownaniu", 5, Typzadania::łatwe, &przed[0]},
+          {"Pokoloruj drwala... proceduralnie", 30, Typzadania::łatwe, &przed[1]},
+          {"Oblicz całke", 10, Typzadania::podstawowe, &przed[0]},
+          {"Wynies smieci", 1, Typzadania::łatwe, &przed[2]},
+          {"Kup flaszke dla profesora", 10, Typzadania::ambitne,&przed[0]},
+          {"Napisz program komputerowy", 20, Typzadania::ambitne, &przed[1]},  };
+
+     cout<< zadaniaONajdluzszejTresci(zadania, 7, "matematyka")<<"\n";
+      wypiszdane(zadania[0]);
+     test1();
+     test2();
+  }
